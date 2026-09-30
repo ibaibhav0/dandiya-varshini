@@ -130,6 +130,10 @@ export default function App() {
 
   const handleYes = () => {
     heartsRef.current?.addHearts(8, true);
+    // Start music when YES is clicked
+    if (!playing) {
+      toggleMusic();
+    }
     setTimeout(() => setScene(SCENES.YES), 200);
   };
 
@@ -187,8 +191,10 @@ export default function App() {
       {/* Hearts overlay */}
       <HeartsOverlay ref={heartsRef} />
 
-      {/* Music button */}
-      <MusicButton playing={playing} onToggle={toggleMusic} />
+      {/* Music button — only visible on the YES celebration screen */}
+      {scene === SCENES.YES && (
+        <MusicButton playing={playing} onToggle={toggleMusic} />
+      )}
 
       {/* Main content */}
       <main style={{ position: 'relative', zIndex: 20, width: '100%', display: 'flex', justifyContent: 'center' }}>
